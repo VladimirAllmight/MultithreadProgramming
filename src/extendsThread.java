@@ -1,11 +1,10 @@
-public class extendsThread extends Thread {
+class extendsThread extends Thread {
     private int evenCount = 0;
     private int oddCount = 0;
     private final int start;
     private final int end;
     private final int N;
 
-    // Глобальные переменные для суммирования результатов потоков
     private static int totalEven = 0;
     private static int totalOdd = 0;
 
@@ -27,8 +26,7 @@ public class extendsThread extends Thread {
             }
         }
 
-        // Синхронизируем доступ к общим переменным
-        synchronized (OneThread.class) {
+        synchronized (extendsThread.class) {
             totalEven += evenCount;
             totalOdd += oddCount;
         }
@@ -51,11 +49,16 @@ public class extendsThread extends Thread {
         return true;
     }
 
-    public static int getTotalEven() {
+    public static synchronized int getTotalEven() {
         return totalEven;
     }
 
-    public static int getTotalOdd() {
+    public static synchronized int getTotalOdd() {
         return totalOdd;
+    }
+
+    public static synchronized void resetCounters() {
+        totalEven = 0;
+        totalOdd = 0;
     }
 }
