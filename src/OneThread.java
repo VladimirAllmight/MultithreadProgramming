@@ -11,7 +11,7 @@ public class OneThread {
         this.N = N;
     }
 
-    public String executeOneThread() {
+    public void executeOneThread() {
         for (int i = start; i <= end; i++) {
             if (isConsecutiveDigits(i, N)) {
                 if (i % 2 == 0) {
@@ -21,7 +21,6 @@ public class OneThread {
                 }
             }
         }
-        return "For single-threaded program with N = " + N +  " Number of even: " + evenCount + " Number of odd: " + oddCount;
     };
 
     private static boolean isConsecutiveDigits(int number, int N) {
