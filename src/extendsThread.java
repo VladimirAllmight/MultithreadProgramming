@@ -61,3 +61,5 @@ class extendsThread extends Thread {
         totalOdd = 0;
     }
 }
+
+//приуэт!
