@@ -1,24 +1,23 @@
 import java.util.*;
 
 public class Main {
-    private static int N = 0;
-
+    private static final int[] threadCounts = {2, 4, 8, 16, 32, 64, 128};
     public static void main(String[] args) {
         try {
             // Ввод N
             System.out.print("Введите разрядность чисел: ");
             Scanner sc = new Scanner(System.in);
-            N = sc.nextInt();
+            int n = sc.nextInt();
             sc.close();
 
             // Определение границ нужных чисел
-            int startOfRange = (int) Math.pow(10, N - 1);
-            int endOfRange = (int) Math.pow(10, N) - 1;
+            int startOfRange = (int) Math.pow(10, n - 1);
+            int endOfRange = (int) Math.pow(10, n) - 1;
 
             //#######################################################################################
             //#################### Запуск для одного потока #########################################
 
-            OneThread oneThread = new OneThread(startOfRange, endOfRange, N);
+            OneThread oneThread = new OneThread(startOfRange, endOfRange, n);
             long startTime = System.nanoTime();
             String firstResult = oneThread.executeOneThread();
             long endTime = System.nanoTime();
@@ -30,7 +29,7 @@ public class Main {
             //################################ Класс extendsThread #################################
             //######################################################################################
 
-            int[] threadCounts = {2, 4, 8, 16, 32, 64, 128};
+
             double[] timeResults = new double[threadCounts.length];
 
             for (int t = 0; t < threadCounts.length; t++) {
@@ -47,7 +46,7 @@ public class Main {
                     int threadStart = startOfRange + i * step;
                     int threadEnd = (i == currThreadCount - 1) ? endOfRange : threadStart + step - 1;
 
-                    threads[i] = new extendsThread(threadStart, threadEnd, N);
+                    threads[i] = new extendsThread(threadStart, threadEnd, n);
                     threads[i].start();
                 }
 
@@ -58,7 +57,6 @@ public class Main {
                         e.printStackTrace();
                     }
                 }
-
                 endTime = System.nanoTime();
                 duration = (endTime - startTime) / 1_000_000_000.0;
                 timeResults[t] = duration;

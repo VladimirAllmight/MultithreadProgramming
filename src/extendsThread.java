@@ -25,7 +25,6 @@ class extendsThread extends Thread {
                 }
             }
         }
-
         synchronized (extendsThread.class) {
             totalEven += evenCount;
             totalOdd += oddCount;
